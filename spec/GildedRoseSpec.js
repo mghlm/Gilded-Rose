@@ -12,6 +12,12 @@ describe("Gilded Rose", function() {
     quality: 30
   }
 
+  var testSulfuras = {
+    name: 'Sulfuras, Hand of Ragnaros',
+    sellIn: 15,
+    quality: 50
+  }
+
   var shop;
 
   beforeEach(function() {
@@ -27,6 +33,7 @@ describe("Gilded Rose", function() {
   });
 
   describe('Backstage Passes', function() {
+
     it('quality goes up by 1 when updated', function() {
       shop.updateQualityBackstagePass(testBackstagePass)
       expect(testBackstagePass.quality).toEqual(31);
@@ -51,6 +58,14 @@ describe("Gilded Rose", function() {
       testBackstagePass.quality = 30;
       shop.updateQualityBackstagePass(testBackstagePass)
       expect(testBackstagePass.quality).toEqual(0);
+    });
+  });
+
+  describe('Sulfuras', function() {
+
+    it('quality doesnt decrease or increase', function() {
+      shop.updateQualityNew(testSulfuras)
+      expect(testSulfuras.quality).toEqual(50);
     });
   });
 

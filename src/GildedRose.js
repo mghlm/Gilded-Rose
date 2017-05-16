@@ -10,14 +10,18 @@ var Shop = function(items = 0) {
     this.items = items;
   }
 
+  function _qualityWithinRange(item) {
+    return item.quality > 0 && item.quality < 50;
+  }
+
   Shop.prototype.updateQualityBrie = function (item) {
-    if ((item.sellIn > 0) && (item.quality >= 0) && (item.quality < 50)) {
+    if ((item.sellIn > 0) && qualityWithinRange(item)) {
       item.quality += 1;
     }
   };
 
   Shop.prototype.updateQualityBackstagePass = function (item) {
-    if ((item.quality >= 0) && (item.quality < 50)) { //checks if quality is within range 0..50
+    if (qualityWithinRange(item)) {
       if (item.sellIn > 10) { //checks if sellIn is higher than 10
         item.quality += 1;
       } else if ((item.sellIn <= 10) && (item.sellIn > 5)) { //checks if sellIn is within range 5..10
@@ -30,7 +34,11 @@ var Shop = function(items = 0) {
     }
   };
 
-
+Shop.prototype.updateQualityNew = function (item) {
+  if (item.name != 'Sulfuras, Hand of Ragnaros') {
+    item.quality += 1;
+  };
+};
 
 
   Shop.prototype.updateQuality = function () {
