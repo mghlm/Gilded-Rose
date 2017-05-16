@@ -10,27 +10,33 @@ var Shop = function(items = 0) {
     this.items = items;
   }
 
+  //functions for all quality updates:
   function _qualityWithinRange(item) {
     return item.quality > 0 && item.quality < 50;
   }
 
-  Shop.prototype.updateQualityBrie = function (item) {
-    if ((item.sellIn > 0) && qualityWithinRange(item)) {
-      item.quality += 1;
-    }
-  };
+  //functions for backstage pass quality updates:
+  function _sellInTenOrLess(item) {
+    return item.sellIn <= 10 && item.sellIn > 5;
+  }
 
   Shop.prototype.updateQualityBackstagePass = function (item) {
-    if (qualityWithinRange(item)) {
+    if (_qualityWithinRange(item)) {
       if (item.sellIn > 10) { //checks if sellIn is higher than 10
         item.quality += 1;
-      } else if ((item.sellIn <= 10) && (item.sellIn > 5)) { //checks if sellIn is within range 5..10
+      } else if (_sellInTenOrLess(item)) { //checks if sellIn is within range 5..10
           item.quality += 2;
       } else if ((item.sellIn <= 5) && (item.sellIn > 0)) { //cehcks if sellIn is within range 0..10
           item.quality += 3;
       } else if (item.sellIn === 0) {
           item.quality = 0;
       }
+    }
+  };
+
+  Shop.prototype.updateQualityBrie = function (item) {
+    if ((item.sellIn > 0) && _qualityWithinRange(item)) {
+      item.quality += 1;
     }
   };
 
