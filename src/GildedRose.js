@@ -32,8 +32,10 @@ var Shop = function(items = 0) {
   };
 
   Shop.prototype.updateQualityNew = function (item) {
-    if ((item.name != 'Sulfuras, Hand of Ragnaros') && (_sellInZero(item))) {
-      item.quality += 1;
+    if ((!_itemSulfuras(item)) && (!_sellInZero(item))) {
+      item.quality -= 1;
+    } else if ((!_itemSulfuras(item)) && (_sellInZero(item)))  {
+      item.quality -= 2;
     }
   };
 
@@ -111,4 +113,9 @@ var Shop = function(items = 0) {
 
   function _sellInZero(item) {
     return item.sellIn <= 0;
+  }
+
+  //functions for sulfuras:
+  function _itemSulfuras(item) {
+    return item.name === 'Sulfuras, Hand of Ragnaros';
   }

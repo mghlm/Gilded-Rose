@@ -15,7 +15,13 @@ describe("Gilded Rose", function() {
   var testSulfuras = {
     name: 'Sulfuras, Hand of Ragnaros',
     sellIn: 15,
-    quality: 50
+    quality: 30
+  }
+
+  var testSomeOtherItem = {
+    name: "Test Item",
+    sellIn: 10,
+    quality: 30
   }
 
   var shop;
@@ -23,6 +29,20 @@ describe("Gilded Rose", function() {
   beforeEach(function() {
     shop = new Shop();
   })
+
+  describe('Item', function() {
+    it('quality goes down by 1 when updatesd', function() {
+      shop.updateQualityNew(testSomeOtherItem);
+      expect(testSomeOtherItem.quality).toEqual(29);
+    });
+
+    it('quality goes down by 2 if sell day has passed', function() {
+      testSomeOtherItem.sellIn = 0;
+      testSomeOtherItem.quality = 30;
+      shop.updateQualityNew(testSomeOtherItem);
+      expect(testSomeOtherItem.quality).toEqual(28);
+    });
+  });
 
   describe('Aged Brie', function() {
 
@@ -65,7 +85,7 @@ describe("Gilded Rose", function() {
 
     it('quality doesnt decrease or increase', function() {
       shop.updateQualityNew(testSulfuras)
-      expect(testSulfuras.quality).toEqual(50);
+      expect(testSulfuras.quality).toEqual(30);
     });
   });
 
