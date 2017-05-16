@@ -31,12 +31,12 @@ describe("Gilded Rose", function() {
   })
 
   describe('Item', function() {
-    it('quality goes down by 1 when updatesd', function() {
+    it('quality goes down by 1 when updated', function() {
       shop.updateQualityNew(testSomeOtherItem);
       expect(testSomeOtherItem.quality).toEqual(29);
     });
 
-    it('quality goes down by 2 if sell day has passed', function() {
+    it('quality goes down by 2 when update if sell day has passed', function() {
       testSomeOtherItem.sellIn = 0;
       testSomeOtherItem.quality = 30;
       shop.updateQualityNew(testSomeOtherItem);
@@ -46,7 +46,7 @@ describe("Gilded Rose", function() {
 
   describe('Aged Brie', function() {
 
-    it('quality should go up when updated', function() {
+    it('quality goes up by 1 when updated', function() {
       shop.updateQualityBrie(testAgedBrie);
       expect(testAgedBrie.quality).toEqual(31);
     });
@@ -59,21 +59,21 @@ describe("Gilded Rose", function() {
       expect(testBackstagePass.quality).toEqual(31);
     });
 
-    it('quality goes up by 2 if there are 10 or less days to sell in', function() {
+    it('quality goes up by 2 when upated if there are 10 or less days to sell in', function() {
       testBackstagePass.sellIn = 9;
       testBackstagePass.quality = 30;
       shop.updateQualityBackstagePass(testBackstagePass)
       expect(testBackstagePass.quality).toEqual(32);
     });
 
-    it('quality goes up by 3 if there are 5 or less days to sell in', function() {
+    it('quality goes up by 3 when updated if there are 5 or less days to sell in', function() {
       testBackstagePass.sellIn = 4;
       testBackstagePass.quality = 30;
       shop.updateQualityBackstagePass(testBackstagePass)
       expect(testBackstagePass.quality).toEqual(33);
     });
 
-    it('quality goes to 0 if there are 0 days left to sell in', function() {
+    it('quality goes to 0 when updated if there are 0 days left to sell in', function() {
       testBackstagePass.sellIn = 0;
       testBackstagePass.quality = 30;
       shop.updateQualityBackstagePass(testBackstagePass)
