@@ -10,25 +10,16 @@ var Shop = function(items = 0) {
     this.items = items;
   }
 
-  //functions for all quality updates:
-  function _qualityWithinRange(item) {
-    return item.quality > 0 && item.quality < 50;
-  }
-
-  //functions for backstage pass quality updates:
-  function _sellInTenOrLess(item) {
-    return item.sellIn <= 10 && item.sellIn > 5;
-  }
 
   Shop.prototype.updateQualityBackstagePass = function (item) {
     if (_qualityWithinRange(item)) {
-      if (item.sellIn > 10) { //checks if sellIn is higher than 10
+      if (_sellInMoreThanTen(item)) { //checks if sellIn is higher than 10
         item.quality += 1;
       } else if (_sellInTenOrLess(item)) { //checks if sellIn is within range 5..10
           item.quality += 2;
-      } else if ((item.sellIn <= 5) && (item.sellIn > 0)) { //cehcks if sellIn is within range 0..10
+      } else if (_sellInFiveOrLess(item)) { //cehcks if sellIn is within range 0..10
           item.quality += 3;
-      } else if (item.sellIn === 0) {
+      } else if (_sellInZero(item)) {
           item.quality = 0;
       }
     }
@@ -40,11 +31,11 @@ var Shop = function(items = 0) {
     }
   };
 
-Shop.prototype.updateQualityNew = function (item) {
-  if (item.name != 'Sulfuras, Hand of Ragnaros') {
-    item.quality += 1;
+  Shop.prototype.updateQualityNew = function (item) {
+    if ((item.name != 'Sulfuras, Hand of Ragnaros') && (_sellInZero(item))) {
+      item.quality += 1;
+    }
   };
-};
 
 
   Shop.prototype.updateQuality = function () {
@@ -96,4 +87,28 @@ Shop.prototype.updateQualityNew = function (item) {
     }
 
     return this.items;
+  }
+
+  //private functions:
+
+  //functions for all quality updates:
+  function _qualityWithinRange(item) {
+    return item.quality > 0 && item.quality < 50;
+  }
+
+  //functions for backstage pass quality updates:
+  function _sellInMoreThanTen(item) {
+    return item.sellIn > 10;
+  }
+
+  function _sellInTenOrLess(item) {
+    return item.sellIn <= 10 && item.sellIn > 5;
+  }
+
+  function _sellInFiveOrLess(item) {
+    return item.sellIn <= 5 && item.sellIn > 0;
+  }
+
+  function _sellInZero(item) {
+    return item.sellIn <= 0;
   }
