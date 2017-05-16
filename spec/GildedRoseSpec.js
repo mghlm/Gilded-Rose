@@ -6,12 +6,6 @@ describe("Gilded Rose", function() {
     quality: 30
   }
 
-  var testBackstagePassSellIn10 = {
-    name: 'Backstage passes to a TAFKAL80ETC concert',
-    sellIn: 9,
-    quality: 30
-  }
-
   var testBackstagePass = {
     name: 'Backstage passes to a TAFKAL80ETC concert',
     sellIn: 11,
@@ -39,8 +33,24 @@ describe("Gilded Rose", function() {
     });
 
     it('quality goes up by 2 if there are 10 or less days to sell in', function() {
-      shop.updateQualityBackstagePass(testBackstagePassSellIn10)
-      expect(testBackstagePassSellIn10.quality).toEqual(32);
+      testBackstagePass.sellIn = 9;
+      testBackstagePass.quality = 30;
+      shop.updateQualityBackstagePass(testBackstagePass)
+      expect(testBackstagePass.quality).toEqual(32);
+    });
+
+    it('quality goes up by 3 if there are 5 or less days to sell in', function() {
+      testBackstagePass.sellIn = 4;
+      testBackstagePass.quality = 30;
+      shop.updateQualityBackstagePass(testBackstagePass)
+      expect(testBackstagePass.quality).toEqual(33);
+    });
+
+    it('quality goes to 0 if there are 0 days left to sell in', function() {
+      testBackstagePass.sellIn = 0;
+      testBackstagePass.quality = 30;
+      shop.updateQualityBackstagePass(testBackstagePass)
+      expect(testBackstagePass.quality).toEqual(0);
     });
   });
 
