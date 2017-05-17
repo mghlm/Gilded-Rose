@@ -1,32 +1,42 @@
-class Item {
-  constructor(name, sellIn, quality){
+const MAX_QUALITY = 50;
+const MIN_QUALITY = 0;
+
+const SELL_DAY_PASSED = 0;
+
+const SULFURAS = 'Sulfuras, Hand of Ragnaros';
+const BACKSTAGE_PASS = 'Backstage passes to a TAFKAL80ETC concert';
+const AGED_BRIE = 'Aged Brie';
+
+var Item = function(name, sellIn, quality) {
     this.name = name;
     this.sellIn = sellIn;
     this.quality = quality;
   }
-}
+
+//MAGIC NUMBERS
+//MAGIC STRINGS
+
 
 var Shop = function(items = 0) {
     this.items = items;
   }
 
-
   Shop.prototype.updateQualityBackstagePass = function (item) {
     if (_qualityWithinRange(item)) {
-      if (_sellInMoreThanTen(item)) { //checks if sellIn is higher than 10
+      if (_sellInMoreThanTen(item)) {
         item.quality += 1;
-      } else if (_sellInTenOrLess(item)) { //checks if sellIn is within range 5..10
+      } else if (_sellInTenOrLess(item)) {
           item.quality += 2;
-      } else if (_sellInFiveOrLess(item)) { //cehcks if sellIn is within range 0..10
+      } else if (_sellInFiveOrLess(item)) {
           item.quality += 3;
       } else if (_sellInZero(item)) {
-          item.quality = 0;
+          item.quality = MIN_QUALITY;
       }
     }
   };
 
   Shop.prototype.updateQualityBrie = function (item) {
-    if ((item.sellIn > 0) && _qualityWithinRange(item)) {
+    if ((item.sellIn > SELL_DAY_PASSED) && _qualityWithinRange(item)) {
       item.quality += 1;
     }
   };
@@ -39,12 +49,11 @@ var Shop = function(items = 0) {
     }
   };
 
-
   //private functions:
 
   //functions for all quality updates:
   function _qualityWithinRange(item) {
-    return item.quality > 0 && item.quality < 50;
+    return item.quality > MIN_QUALITY && item.quality < MAX_QUALITY;
   }
 
   //functions for backstage pass quality updates:
@@ -61,20 +70,20 @@ var Shop = function(items = 0) {
   }
 
   function _sellInZero(item) {
-    return item.sellIn <= 0;
+    return item.sellIn <= SELL_DAY_PASSED;
   }
 
   //functions for sulfuras:
   function _itemSulfuras(item) {
-    return item.name === 'Sulfuras, Hand of Ragnaros';
+    return item.name === SULFURAS;
   }
 
   function _itemBackstagePass(item) {
-    return item.name === 'Backstage passes to a TAFKAL80ETC concert';
+    return item.name === BACKSTAGE_PASS;
   }
 
   function _itemAgedBrie(item) {
-    return item.name === 'Aged Brie';
+    return item.name === AGED_BRIE;
   }
 
 
