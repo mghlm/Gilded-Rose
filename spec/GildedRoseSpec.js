@@ -30,16 +30,28 @@ describe("Gilded Rose", function() {
     shop = new Shop();
   })
 
+  // describe('Update all', function() {
+  //   it('updates all types of items correctly', function() {
+  //     items = new Items([testAgedBrie, testBackstagePass, testSulfuras, testSomeOtherItem]);
+  //     shop.updateAll(items);
+  //     expect(testAgedBrie.quality).toEqual(31);
+  //     expect(testBackstagePass.quality).toEqual(29);
+  //     expect(testSulfuras.quality).toEqual(30);
+  //     expect(testSomeOtherItem.quality).toEqual(29);
+  //   });
+  // });
+
+
   describe('Item', function() {
     it('quality goes down by 1 when updated', function() {
-      shop.updateQualityNew(testSomeOtherItem);
+      shop.updateQualityNormal(testSomeOtherItem);
       expect(testSomeOtherItem.quality).toEqual(29);
     });
 
     it('quality goes down by 2 when update if sell day has passed', function() {
       testSomeOtherItem.sellIn = 0;
       testSomeOtherItem.quality = 30;
-      shop.updateQualityNew(testSomeOtherItem);
+      shop.updateQualityNormal(testSomeOtherItem);
       expect(testSomeOtherItem.quality).toEqual(28);
     });
   });
@@ -84,9 +96,11 @@ describe("Gilded Rose", function() {
   describe('Sulfuras', function() {
 
     it('quality doesnt decrease or increase', function() {
-      shop.updateQualityNew(testSulfuras)
+      shop.updateQualityNormal(testSulfuras)
       expect(testSulfuras.quality).toEqual(30);
     });
   });
+
+
 
 });

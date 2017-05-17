@@ -1,9 +1,9 @@
 'use strict';
 
-var Items = function() {
-  this.all = [];
+var Items = function(itemsArray=[]) {
+  this.itemsArray = itemsArray;
 }
 
 Items.prototype.add = function (item) {
-  this.all.push(item);
+  this.itemsArray.push(item);
 };

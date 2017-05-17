@@ -17,7 +17,7 @@ describe('Items', function() {
   describe('Add new item', function() {
     it('adds a new item to all array', function() {
       items.add(testItem);
-      expect(items.all).toEqual([{
+      expect(items.itemsArray).toEqual([{
                                   name: 'Test Item',
                                   sellIn: 10,
                                   quality: 30
